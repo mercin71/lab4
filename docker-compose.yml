@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3"
 
 services:
 
@@ -7,10 +7,13 @@ services:
       context: ./httpd
     container_name: "httpd-server"
     ports:
-      - "8000:80"
+      - "6666:80"
       - "8443:443"
     depends_on:
       - php
+    networks:
+      - frontend
+      - backend
 
   php:
     build:
@@ -27,6 +30,8 @@ services:
       - "9000:9000"
     volumes:
       - ./www:/usr/local/apache2/htdocs/
+    networks:
+      - backend
 
   db3:
     container_name: db3
@@ -39,6 +44,8 @@ services:
       MYSQL_PASSWORD: admin
     ports:
       - "9906:3306"
+    networks:
+      - backend
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
@@ -48,3 +55,8 @@ services:
       PMA_HOST: db3
     depends_on:
       - db3
+    networks:
+      - backend
+networks:
+  frontend:
+  backend:
