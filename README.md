@@ -1,6 +1,6 @@
 # lab4
 #Laboratorium 4 - docker
-Port servera apache: 8000
+Port servera apache: 6666
 Port PHPMyAdmin: 8080
 #
 Login: admin
